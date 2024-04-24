@@ -3,6 +3,8 @@ import { BaseCommand } from "../../interfaces";
 
 import Logger from "../../classes/Logger";
 import { WarnsModel, Warn } from "../../models/WarnsModel";
+import Utility from "../../classes/Utility";
+import { colors } from "../../config/colors";
 
 export default {
     data: new SlashCommandBuilder()
@@ -52,7 +54,7 @@ export default {
     usage: "warn <add | remove | view> [user] [reason | id]",
     examples: [
         "warn add @User#0001 Spamming",
-        "warn remove @User#0001 1",
+        "warn remove @User#0001 12345678",
         "warn view @User#0001"
     ],
     permissions: ["ManageMessages"],
@@ -65,55 +67,85 @@ export default {
             const reason = options.getString("reason") as string;
 
             if (!user) {
-                await interaction.reply({
-                    content: "Please provide a user.",
-                    ephemeral: true
-                });
+                await interaction.reply("Please provide a user.");
                 return;
             }
 
-            if (user.id === interaction.user.id) {
-                await interaction.reply({
-                    content: "You can't warn yourself.",
-                    ephemeral: true
-                });
+            if (!reason) {
+                await interaction.reply("Please provide a reason.");
                 return;
             }
 
-            if (user.id === interaction.client.user?.id) {
-                await interaction.reply({
-                    content: "I can't warn myself.",
-                    ephemeral: true
-                });
-                return;
+            let warning = WarnsModel.findOne(
+                {
+                    guild_id: interaction.guild?.id,
+                    user: {
+                        id: user.user.id,
+                        username: user.user.username
+                    }
+                }
+            )
+
+            if (!warning) {
+                const warnModel = new WarnsModel({
+                    guild_id: interaction.guild?.id,
+                    user: {
+                        id: user.user.id,
+                        username: user.user.username
+                    },
+                    warnings: [
+                        {
+                            moderator: {
+                                id: interaction.user.id,
+                                username: interaction.user.username
+                            },
+                            reason: reason,
+                            timestamp: Date.now(),
+                            id: Utility.generateSpecialId()
+                        }
+                    ]
+                })
+
+                await warnModel.save();
+
+                const embed = new EmbedBuilder()
+                    .setTitle("Warn added")
+                    .setDescription(`Added a warning to ${user.user.username}.`)
+                    .setColor(colors.CYAN)
+                    .addFields([
+                        {
+                            name: "Moderator",
+                            value: `<@${interaction.user.id}>`,
+                            inline: true
+                        },
+                        {
+                            name: "Reason",
+                            value: reason,
+                            inline: true
+                        },
+                        {
+                            name: "Timestamp",
+                            value: Utility.formatTimestamp(Date.now()),
+                            inline: true
+                        }
+                    ])
+                    .setTimestamp();
+
+                await interaction.reply({ embeds: [embed] });
+
+                try {
+                    await user.send(
+                        `You have been warned in ${interaction.guild?.name} for ${reason}.`
+                    );
+                } catch (error) {
+                    Logger.error((error as Error))
+                    await interaction.reply("Failed to send a message to the user.");
+                }
+
+                
             }
 
-            const warn = new Warn({
-                guildID: interaction.guildId as string,
-                userID: user.id,
-                moderatorID: interaction.user.id,
-                reason
-            });
 
-            await warn.save().catch(error as Error => {
-                Logger.error("WARN_SAVE_ERR:", error);
-                return interaction.reply({
-                    content: "An error occurred while saving the warning.",
-                    ephemeral: true
-                });
-            });
-
-            const embed = new EmbedBuilder()
-                .setColor("#FF0000")
-                .setTitle("User Warned")
-                .addFields([
-                    { name: "User", value: user.toString() },
-                    { name: "Moderator", value: interaction.user.toString() },
-                    { name: "Reason", value: reason }
-                ])
-                .setTimestamp();
-
-            await interaction.reply({ embeds: [embed] });
         }
     }
 } as BaseCommand;
