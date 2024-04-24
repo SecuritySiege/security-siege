@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 export interface Warning {
-    warn_id: number;
+    warn_id: string;
     reason: string;
     timestamp: number;
     moderator: {
