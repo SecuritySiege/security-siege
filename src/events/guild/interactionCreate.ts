@@ -11,6 +11,15 @@ export default {
 
             if (!command) return;
 
+            if (command.permissions && !interaction.memberPermissions?.has(command.permissions, true)) {
+                await interaction.reply(
+                    {
+                        content: "You do not have permission to use this command!",
+                        ephemeral: true,
+                    }
+                )
+            }
+
             try {
                 await command.execute(interaction);
             } catch (error) {
