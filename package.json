@@ -1,6 +1,6 @@
 {
   "name": "security-siege",
-  "version": "1.0.0",
+  "version": "2.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "canvafy": "^7.1.0",
     "chalk": "^4.1.2",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",

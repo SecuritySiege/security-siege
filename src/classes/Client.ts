@@ -26,8 +26,12 @@ export default class BaseClient<Ready extends boolean = boolean> extends Client<
         super({
             intents: [
                 IntentsBitField.Flags.Guilds,
+                IntentsBitField.Flags.GuildMembers,
                 IntentsBitField.Flags.GuildMessages,
                 IntentsBitField.Flags.GuildMessageReactions,
+                IntentsBitField.Flags.GuildPresences,
+                IntentsBitField.Flags.GuildEmojisAndStickers,
+                IntentsBitField.Flags.GuildInvites,
                 IntentsBitField.Flags.DirectMessages,
                 IntentsBitField.Flags.DirectMessageReactions
             ],

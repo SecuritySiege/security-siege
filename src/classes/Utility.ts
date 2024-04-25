@@ -39,4 +39,26 @@ export default class Utility {
             ViewChannel: true
         });
     }
+
+    static async getMemberCount(guild: Guild) {
+        const members = await guild.members.fetch();
+        
+        // Check if the number ends 1, 2, or 3
+        const lastDigit = members.size % 10;
+
+        let memberCount = members.size.toString();
+
+        if (lastDigit === 1) {
+            memberCount += "st";
+        } else if (lastDigit === 2) {
+            memberCount += "nd";
+        } else if (lastDigit === 3) {
+            memberCount += "rd";
+        }
+        else {
+            memberCount += "th";
+        }
+
+        return memberCount;
+    }
 }

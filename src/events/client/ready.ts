@@ -12,7 +12,7 @@ export default {
         client.user.setPresence({
             activities: [
                 {
-                    name: "Owen coding me :D",
+                    name: "Owen coding me 24/7 :D",
                     type: ActivityType.Watching
                 }
             ],
