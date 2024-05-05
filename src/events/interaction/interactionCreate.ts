@@ -3,6 +3,8 @@ import BaseClient from "../../classes/Client";
 import { AutocompleteInteraction, ChatInputCommandInteraction, CommandInteraction, ButtonInteraction } from "discord.js";
 import Logger from "../../classes/Logger";
 
+import { config } from "config/config";
+
 export default {
     name: "interactionCreate",
     async execute(client: BaseClient<true>, interaction: CommandInteraction | AutocompleteInteraction | ChatInputCommandInteraction): Promise<void> {
@@ -10,6 +12,11 @@ export default {
             const command = client.commands.get(interaction.commandName);
 
             if (!command) return;
+
+            if (command.category === "dev" && !config.ownerIDs.includes(interaction.user.id)) {
+                await interaction.reply({ content: "You are not the owner of this bot!", ephemeral: true });
+                return;
+            }
 
             if (command.permissions && !interaction.memberPermissions?.has(command.permissions, true)) {
                 await interaction.reply(

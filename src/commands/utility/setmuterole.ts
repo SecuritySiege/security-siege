@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, CommandInteractionOptionResolver, Role } from "discord.js";
+import { SlashCommandBuilder, CommandInteraction, CommandInteractionOptionResolver, Role, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "interfaces";
 
 import Logger from "classes/Logger";
@@ -8,7 +8,8 @@ export default {
     data: new SlashCommandBuilder()
         .setName("setmuterole")
         .setDescription("Sets the mute role")
-        .addRoleOption(option => option.setName("role").setDescription("The role to set as the mute role").setRequired(true)),
+        .addRoleOption(option => option.setName("role").setDescription("The role to set as the mute role").setRequired(true))
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     category: "utility",
     permissions: ["Administrator"],
     usage: "setmuterole <role>",

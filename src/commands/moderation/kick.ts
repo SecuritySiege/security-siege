@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, GuildMember, GuildMemberRoleManager } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, GuildMember, GuildMemberRoleManager, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 import { colors } from "../../config/colors";
 import { SlashCommandBuilder, EmbedBuilder } from "@discordjs/builders";
@@ -8,7 +8,9 @@ export default {
         .setName("kick")
         .setDescription("Kick a user.")
         .addUserOption(option => option.setName("user").setDescription("The user you want to kick.").setRequired(true))
-        .addStringOption(option => option.setName("reason").setDescription("The reason for kicking the user.")),
+        .addStringOption(option => option.setName("reason").setDescription("The reason for kicking the user."))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+        .setDMPermission(false),
     category: "moderation",
     usage: "/kick @user [reason]",
     examples: [

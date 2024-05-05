@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, EmbedBuilder, GuildMember, Role } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, EmbedBuilder, GuildMember, Role, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "interfaces";
 
 import Logger from "classes/Logger";
@@ -8,7 +8,9 @@ export default {
     data: new SlashCommandBuilder()
         .setName("unmute")
         .setDescription("Unmutes a user")
-        .addUserOption(option => option.setName("user").setDescription("The user to unmute").setRequired(true)),
+        .addUserOption(option => option.setName("user").setDescription("The user to unmute").setRequired(true))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+        .setDMPermission(false),
     category: "moderation",
     permissions: ["KickMembers"],
     usage: "unmute <user>",

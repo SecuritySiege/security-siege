@@ -18,6 +18,7 @@ export default class CommandHandler {
 
     public async loadCommands(): Promise<void> {
         const commands = [];
+
         const commandsFolder = join(__dirname, "..", "commands");
 
         const commandFolders = readdirSync(commandsFolder);
@@ -29,6 +30,8 @@ export default class CommandHandler {
                 const command = (await import(join(commandsFolder, folder, file))).default as BaseCommand;
 
                 commands.push(command.data.toJSON());
+                
+
                 this.client.commands.set(command.data.name, command);
 
                 Logger.log(`Loaded command: ${command.data.name}`);
@@ -38,14 +41,13 @@ export default class CommandHandler {
         const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
 
         try {
-            await rest.put(
-                Routes.applicationGuildCommands(this.client.user.id, process.env.GUILD_ID!),
-                { body: commands },
-            );
+            Logger.log("Started refreshing application (/) commands.");
 
-            Logger.log("Successfully registered application commands.");
+            await rest.put(Routes.applicationGuildCommands(this.client.application.id, process.env.GUILD_ID!), { body: commands });
+
+            Logger.log("Successfully reloaded application (/) commands.");
         } catch (error) {
-            Logger.error(error as Error);
+            Logger.error((error as Error).stack as string);
         }
     }
 }

@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, TextChannel } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
 import { BaseCommand } from "interfaces";
 
 import { WelcomeChannel } from "models/GuildModels";
@@ -12,7 +12,8 @@ export default {
                 .setName("channel")
                 .setDescription("The channel to set as the welcome channel")
                 .setRequired(true)
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     category: "utility",
     permissions: ["Administrator"],
     usage: "setwelcomechannel <channel>",

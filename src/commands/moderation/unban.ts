@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, CommandInteraction, CommandInteractionOptionResolver, Guild } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, CommandInteraction, CommandInteractionOptionResolver, Guild, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 import { colors } from "../../config/colors";
 
@@ -7,7 +7,8 @@ export default {
         .setName("unban")
         .setDescription("Unban a user.")
         .addStringOption(option => option.setName("user-id").setDescription("The user you want to unban.").setRequired(true))
-        .addStringOption(option => option.setName("reason").setDescription("The reason for unbanning the user.")),
+        .addStringOption(option => option.setName("reason").setDescription("The reason for unbanning the user."))
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     category: "moderation",
     usage: "/unban <userID> [reason]",
     examples: [

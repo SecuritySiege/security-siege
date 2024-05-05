@@ -54,7 +54,7 @@ export default class BaseClient<Ready extends boolean = boolean> extends Client<
     }
 
     private async connectDatabase(): Promise<void> {
-        await connect(this.config.mongoURI)
+        await connect(this.config.mongoURI, { dbName: "security-siege" })
             .then(() => Logger.log("Connected to the database."))
             .catch((error) => Logger.error((error as Error).stack as string));
     }

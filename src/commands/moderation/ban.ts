@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder, GuildMember, ActionRowBuilder, ButtonBuilder, CommandInteraction, CommandInteractionOptionResolver, ButtonStyle, GuildMemberRoleManager, ComponentType, Guild } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, GuildMember, ActionRowBuilder, ButtonBuilder, CommandInteraction, CommandInteractionOptionResolver, ButtonStyle, GuildMemberRoleManager, ComponentType, Guild, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 import { colors } from "../../config/colors";
 import { TempBanModel } from "../../models/TempBanModel";
@@ -21,7 +21,9 @@ export default {
                 .addUserOption(option => option.setName("user").setDescription("The user you want to ban.").setRequired(true))
                 .addStringOption(option => option.setName("duration").setDescription("The duration of the ban.").setRequired(true))
                 .addStringOption(option => option.setName("reason").setDescription("The reason for banning the user."))
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
+        .setDMPermission(false),
     category: "moderation",
     usage: "/ban permanent @user [reason] | /ban temporary @user duration [reason]",
     examples: [

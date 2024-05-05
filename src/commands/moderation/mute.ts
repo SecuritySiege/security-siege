@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, EmbedBuilder, GuildMember, Role } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, EmbedBuilder, GuildMember, Role, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "interfaces";
 
 import Logger from "classes/Logger";
@@ -9,7 +9,8 @@ export default {
         .setName("mute")
         .setDescription("Mutes a user")
         .addUserOption(option => option.setName("user").setDescription("The user to mute").setRequired(true))
-        .addStringOption(option => option.setName("reason").setDescription("The reason for the mute").setRequired(true)),
+        .addStringOption(option => option.setName("reason").setDescription("The reason for the mute").setRequired(true))
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
     category: "moderation",
     usage: "mute <user> [reason]",
     permissions: ["KickMembers"],

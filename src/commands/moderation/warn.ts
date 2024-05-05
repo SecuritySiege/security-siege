@@ -1,4 +1,4 @@
-import { CommandInteraction, EmbedBuilder, CommandInteractionOptionResolver, GuildMember, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, EmbedBuilder, CommandInteractionOptionResolver, GuildMember, SlashCommandBuilder, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 
 import Logger from "../../classes/Logger";
@@ -49,7 +49,9 @@ export default {
                         .setDescription("The user to view the warnings of.")
                         .setRequired(true)
                 )
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
+        .setDMPermission(false),
     category: "Moderation",
     usage: "warn <add | remove | view> [user] [reason | id]",
     examples: [

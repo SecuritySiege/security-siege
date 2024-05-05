@@ -2,6 +2,7 @@ import { BaseEvent } from "../../interfaces";
 import BaseClient from "../../classes/Client";
 import Logger from "../../classes/Logger";
 import { ActivityType } from "discord.js";
+import { config } from "config/config";
 
 export default {
     name: "ready",
@@ -19,5 +20,8 @@ export default {
             status: "online"
         })
 
+        const devUser = client.users.cache.get("730334609841324063");
+
+        console.log(devUser)
     }
 } as BaseEvent;

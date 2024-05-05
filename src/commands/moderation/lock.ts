@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, TextChannel, ChannelType } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, TextChannel, ChannelType, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 
 import Logger from "classes/Logger";
@@ -8,7 +8,9 @@ export default {
     data: new SlashCommandBuilder()
         .setName("lock")
         .setDescription("Lock a channel")
-        .addChannelOption(option => option.setName("channel").setDescription("The channel to lock")),
+        .addChannelOption(option => option.setName("channel").setDescription("The channel to lock"))
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDMPermission(false),
     category: "moderation",
     usage: "lock <channel>",
     examples: [

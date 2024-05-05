@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, AutocompleteInteraction, ClientEvents } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, AutocompleteInteraction, ClientEvents, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "interfaces";
 
 export const discordClientEvents: string[] = [
@@ -33,7 +33,8 @@ export default {
     data: new SlashCommandBuilder()
         .setName("emit")
         .setDescription("Emit a Client Event")
-        .addStringOption(option => option.setName("event").setDescription("The event to emit").setRequired(true).setAutocomplete(true)),
+        .addStringOption(option => option.setName("event").setDescription("The event to emit").setRequired(true).setAutocomplete(true))
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     category: "dev",        
     async execute(interaction: CommandInteraction) {
         const options = interaction.options as CommandInteractionOptionResolver;

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, CommandInteraction, CommandInteractionOptionResolver, TextChannel } from "discord.js";
+import { SlashCommandBuilder, CommandInteraction, CommandInteractionOptionResolver, TextChannel, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 
 export default {
@@ -20,7 +20,8 @@ export default {
             subcommand.setName("bot")
                 .setDescription("Delete messages from bots.")
                 .addIntegerOption(option => option.setName("amount").setDescription("The number of messages you want to delete.").setRequired(true))
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     category: "moderation",
     usage: "/purge [subcommand]",
     examples: [

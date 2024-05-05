@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, TextChannel, ChannelType } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, TextChannel, ChannelType, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 
 import Logger from "classes/Logger";
@@ -9,7 +9,9 @@ export default {
         .setName("unlock")
         .setDescription("Unlocks a locked channel")
         .addChannelOption(channel => channel.setName("channel").setDescription("Channel to unlock").setRequired(true))
-        .addStringOption(message => message.setName("message").setDescription("The message to send in the unlock channel.")),
+        .addStringOption(message => message.setName("message").setDescription("The message to send in the unlock channel."))
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDMPermission(false),
     category: "moderation",
     usage: "unlock <channel> [message]",
     examples: [
