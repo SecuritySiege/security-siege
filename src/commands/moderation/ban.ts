@@ -265,7 +265,15 @@ export default {
                             }
                         ])
 
-                    await user.ban({ reason: reason });
+                        
+                    try {
+                        await user.send({
+                            content: `You have been temporarily banned from ${interaction.guild?.name} for ${duration}.\nReason: "${reason}"`
+                        });
+                        await user.ban({ reason: reason });
+                    } catch (error) {
+                        Logger.error(error as Error);
+                    }
 
                     await buttonInteraction.editReply({
                         embeds: [embed]
@@ -279,6 +287,7 @@ export default {
 
                     return;
                 } else if (buttonInteraction.customId === "ban:cancel") {
+                    collector?.stop();
                     await buttonInteraction.deferReply();
                     await buttonInteraction.editReply({
                         content: "Ban has been cancelled."

@@ -52,7 +52,7 @@ export default {
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
         .setDMPermission(false),
-    category: "Moderation",
+    category: "moderation",
     usage: "warn <add | remove | view> [user] [reason | id]",
     examples: [
         "warn add @User#0001 Spamming",
@@ -133,7 +133,7 @@ export default {
 
                 try {
                     await user.send(
-                        `You have been warned in ${interaction.guild?.name} for ${reason}.`
+                        `You have been warned in "${interaction.guild?.name}" for "${reason}".`
                     );
                 } catch (error) {
                     Logger.error((error as Error))
@@ -215,6 +215,15 @@ export default {
 
             await warning.save();
 
+            if (warning.warnings.length === 0) {
+                await WarnsModel.deleteOne({
+                    guild_id: interaction.guild?.id,
+                    "user.id": user.user.id
+                });
+            }
+
+            Logger.info(`Removed a warning from ${user.user.username}.`)
+
             const embed = new EmbedBuilder()
                 .setTitle("Warning removed")
                 .setDescription(`Removed a warning from ${user.user.username}.`)
@@ -242,7 +251,7 @@ export default {
 
             try {
                 await user.send(
-                    `Your warning with ID: ${id} has been removed from **${interaction.guild?.name}**.`
+                    `Your warning with ID: "${id}" has been removed from **${interaction.guild?.name}**.`
                 );
             } catch (error) {
                 Logger.error((error as Error))
