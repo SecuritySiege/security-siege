@@ -8,10 +8,10 @@ export default {
     data: new SlashCommandBuilder()
         .setName("unlock")
         .setDescription("Unlocks a locked channel")
-        .addChannelOption(channel => channel.setName("channel").setDescription("Channel to unlock").setRequired(true))
-        .addStringOption(message => message.setName("message").setDescription("The message to send in the unlock channel."))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-        .setDMPermission(false),
+        .setDMPermission(false)
+        .addChannelOption(channel => channel.setName("channel").setDescription("Channel to unlock").setRequired(true))
+        .addStringOption(message => message.setName("message").setDescription("The message to send in the unlock channel.")),
     category: "moderation",
     usage: "unlock <channel> [message]",
     examples: [

@@ -6,9 +6,9 @@ export default {
     data: new SlashCommandBuilder()
         .setName("unban")
         .setDescription("Unban a user.")
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
         .addStringOption(option => option.setName("user-id").setDescription("The user you want to unban.").setRequired(true))
-        .addStringOption(option => option.setName("reason").setDescription("The reason for unbanning the user."))
-        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
+        .addStringOption(option => option.setName("reason").setDescription("The reason for unbanning the user.")),
     category: "moderation",
     usage: "/unban <userID> [reason]",
     examples: [

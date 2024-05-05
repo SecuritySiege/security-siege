@@ -33,8 +33,8 @@ export default {
     data: new SlashCommandBuilder()
         .setName("emit")
         .setDescription("Emit a Client Event")
-        .addStringOption(option => option.setName("event").setDescription("The event to emit").setRequired(true).setAutocomplete(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .addStringOption(option => option.setName("event").setDescription("The event to emit").setRequired(true).setAutocomplete(true)),
     category: "dev",        
     async execute(interaction: CommandInteraction) {
         const options = interaction.options as CommandInteractionOptionResolver;

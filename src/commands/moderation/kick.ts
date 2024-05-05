@@ -7,10 +7,10 @@ export default {
     data: new SlashCommandBuilder()
         .setName("kick")
         .setDescription("Kick a user.")
-        .addUserOption(option => option.setName("user").setDescription("The user you want to kick.").setRequired(true))
-        .addStringOption(option => option.setName("reason").setDescription("The reason for kicking the user."))
+        .setDMPermission(false)
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-        .setDMPermission(false),
+        .addUserOption(option => option.setName("user").setDescription("The user you want to kick.").setRequired(true))
+        .addStringOption(option => option.setName("reason").setDescription("The reason for kicking the user.")),
     category: "moderation",
     usage: "/kick @user [reason]",
     examples: [

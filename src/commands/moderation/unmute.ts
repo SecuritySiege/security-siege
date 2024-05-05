@@ -8,9 +8,9 @@ export default {
     data: new SlashCommandBuilder()
         .setName("unmute")
         .setDescription("Unmutes a user")
-        .addUserOption(option => option.setName("user").setDescription("The user to unmute").setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
-        .setDMPermission(false),
+        .setDMPermission(false)
+        .addUserOption(option => option.setName("user").setDescription("The user to unmute").setRequired(true)),
     category: "moderation",
     permissions: ["KickMembers"],
     usage: "unmute <user>",

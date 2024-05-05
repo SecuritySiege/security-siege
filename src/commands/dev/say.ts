@@ -5,11 +5,11 @@ export default {
     data: new SlashCommandBuilder()
         .setName("say")
         .setDescription("Replies with your input.")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addStringOption(option =>
             option.setName("input")
                 .setDescription("The input to say.")
-                .setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+                .setRequired(true)),
     permissions: ["Administrator"],
     category: "dev",
     async execute(interaction: CommandInteraction): Promise<void> {

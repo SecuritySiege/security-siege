@@ -8,9 +8,9 @@ export default {
     data: new SlashCommandBuilder()
         .setName("mute")
         .setDescription("Mutes a user")
+        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
         .addUserOption(option => option.setName("user").setDescription("The user to mute").setRequired(true))
-        .addStringOption(option => option.setName("reason").setDescription("The reason for the mute").setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
+        .addStringOption(option => option.setName("reason").setDescription("The reason for the mute").setRequired(true)),
     category: "moderation",
     usage: "mute <user> [reason]",
     permissions: ["KickMembers"],

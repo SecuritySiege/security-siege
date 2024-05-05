@@ -1,12 +1,12 @@
-import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, AutocompleteInteraction, ClientEvents, GuildMember, PermissionFlagsBits } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "interfaces";
 
 export default {
     data: new SlashCommandBuilder()
         .setName("emitwelcome")
         .setDescription("Emit a welcome event")
-        .addUserOption(user => user.setName("member").setDescription("The member to test").setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .addUserOption(user => user.setName("member").setDescription("The member to test").setRequired(true)),
     category: "dev",
     async execute(interaction: CommandInteraction) {
         const options = interaction.options as CommandInteractionOptionResolver;

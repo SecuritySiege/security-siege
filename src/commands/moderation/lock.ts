@@ -8,9 +8,9 @@ export default {
     data: new SlashCommandBuilder()
         .setName("lock")
         .setDescription("Lock a channel")
-        .addChannelOption(option => option.setName("channel").setDescription("The channel to lock"))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-        .setDMPermission(false),
+        .setDMPermission(false)
+        .addChannelOption(option => option.setName("channel").setDescription("The channel to lock")),
     category: "moderation",
     usage: "lock <channel>",
     examples: [

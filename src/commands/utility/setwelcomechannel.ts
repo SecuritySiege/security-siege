@@ -7,13 +7,13 @@ export default {
     data: new SlashCommandBuilder()
         .setName("setwelcomechannel")
         .setDescription("Sets the welcome channel")
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addChannelOption((option) =>
             option
                 .setName("channel")
                 .setDescription("The channel to set as the welcome channel")
                 .setRequired(true)
-        )
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        ),
     category: "utility",
     permissions: ["Administrator"],
     usage: "setwelcomechannel <channel>",

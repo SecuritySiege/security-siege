@@ -8,8 +8,8 @@ export default {
     data: new SlashCommandBuilder()
         .setName("setmuterole")
         .setDescription("Sets the mute role")
-        .addRoleOption(option => option.setName("role").setDescription("The role to set as the mute role").setRequired(true))
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+        .addRoleOption(option => option.setName("role").setDescription("The role to set as the mute role").setRequired(true)),
     category: "utility",
     permissions: ["Administrator"],
     usage: "setmuterole <role>",

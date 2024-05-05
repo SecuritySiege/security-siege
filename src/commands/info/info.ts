@@ -24,7 +24,7 @@ export default {
     async execute(interaction: CommandInteraction): Promise<void> {
         const options = interaction.options as CommandInteractionOptionResolver;
         if (options.getSubcommand() === "user") {
-            const user = interaction.options.getUser("user");
+            const user = options.getUser("user");
 
             if (!user) {
                 await interaction.reply({
