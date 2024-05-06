@@ -1,4 +1,4 @@
-import { CommandInteraction, AutocompleteInteraction, GuildMember, APIEmbedField, RestOrArray } from "discord.js";
+import { CommandInteraction, AutocompleteInteraction, APIEmbedField, RestOrArray } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 import BaseClient from "../../classes/Client";
 import { SlashCommandBuilder, EmbedBuilder } from "@discordjs/builders";
