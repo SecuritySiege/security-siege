@@ -30,7 +30,7 @@ export default class CommandHandler {
                 const command = (await import(join(commandsFolder, folder, file))).default as BaseCommand;
 
                 commands.push(command.data.toJSON());
-                
+
 
                 this.client.commands.set(command.data.name, command);
 
@@ -43,7 +43,12 @@ export default class CommandHandler {
         try {
             Logger.log("Started refreshing application (/) commands.");
 
-            await rest.put(Routes.applicationGuildCommands(this.client.application.id, process.env.GUILD_ID!), { body: commands });
+            // Uploads the commands to the guild
+            await rest.put(Routes.applicationGuildCommands(this.client.application.id, process.env.GUILD_ID!),
+                { body: commands });
+
+            // Uploads the commands to the application
+            // await rest.put(Routes.applicationCommands(this.client.application.id), { body: commands });
 
             Logger.log("Successfully reloaded application (/) commands.");
         } catch (error) {
