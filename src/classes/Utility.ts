@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Role, TextChannel } from "discord.js";
+import { Guild, TextChannel } from "discord.js";
 import BaseClient from "./Client";
 
 export default class Utility {
