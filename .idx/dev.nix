@@ -23,7 +23,6 @@
     extensions = [
       # "vscodevim.vim"
       "equinusocio.vsc-material-theme-icons"
-      "esbenp.prettier-vscode"
     ];
 
     # Enable previews

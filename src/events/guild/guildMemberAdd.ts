@@ -5,6 +5,7 @@ import Utility from "classes/Utility";
 
 // import { WelcomeLeave } from "canvafy";
 import Logger from "classes/Logger";
+import { colors } from "config/colors";
 
 import { WelcomeChannel } from "models/GuildModels";
 
@@ -28,7 +29,7 @@ export default {
         //     .build();
 
         const welcomeEmbed = new EmbedBuilder()
-            .setColor("#2a2e35")
+            .setColor(colors.CYAN)
             .setTitle("Welcome :D")
             .setDescription(`Welcome ${member.user.username}, go ahead and read the rules!`)
             .setThumbnail(member.user.displayAvatarURL({ forceStatic: false }))
@@ -43,7 +44,7 @@ export default {
         try {
             await channel.send({
                 content: `Welcome ${member.user.toString()}! Your our ${memberCount} member!`,
-                embeds: [welcomeEmbed]
+                embeds: [welcomeEmbed],
 
                 // TODO: Wait for Canvas API to be integrated with Bun
 
