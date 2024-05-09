@@ -2,7 +2,7 @@ import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuild
 import { BaseCommand } from "interfaces";
 
 import Logger from "classes/Logger";
-import { MuteRole } from "models/GuildModels";
+import { MuteRole } from "models/GuildModel";
 
 export default {
     data: new SlashCommandBuilder()

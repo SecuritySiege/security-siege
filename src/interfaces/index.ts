@@ -19,8 +19,3 @@ export interface BaseCommand {
     execute(interaction: CommandInteraction): Awaitable<void>;
     autocomplete?: (interaction: AutocompleteInteraction) => Awaitable<void>;
 }
-
-// export interface BaseButton {
-//     customId: string;
-//     execute(interaction: CommandInteraction): Awaitable<void>;
-// }

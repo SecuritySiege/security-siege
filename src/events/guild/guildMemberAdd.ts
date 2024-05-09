@@ -7,7 +7,7 @@ import Utility from "classes/Utility";
 import Logger from "classes/Logger";
 import { colors } from "config/colors";
 
-import { WelcomeChannel } from "models/GuildModels";
+import { WelcomeChannel } from "models/GuildModel";
 
 export default {
     name: "guildMemberAdd",

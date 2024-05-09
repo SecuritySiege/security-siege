@@ -81,6 +81,12 @@ export default {
                 .setDescription("Here are a list of categories with their commands! For more information, use the `/help command help` command.")
                 .setColor(colors.CYAN)
                 .addFields(fields)
+                .setAuthor(
+                    {
+                        name: interaction.user.username,
+                        iconURL: interaction.user.displayAvatarURL()
+                    }
+                )
                 .setTimestamp();
 
             await interaction.reply({ embeds: [embed] });
@@ -121,6 +127,12 @@ export default {
                         inline: true
                     }
                 ])
+                .setAuthor(
+                    {
+                        name: interaction.user.username,
+                        iconURL: interaction.user.displayAvatarURL()
+                    }
+                )
                 .setTimestamp();
 
             await interaction.reply({ embeds: [embed] });
@@ -155,6 +167,12 @@ export default {
                 .setDescription(`Here are all the commands in the "${Utility.capitalize(category)}" category! For more information, use the \`/help command help\` command.`)
                 .setColor(colors.CYAN)
                 .addFields(fields)
+                .setAuthor(
+                    {
+                        name: interaction.user.username,
+                        iconURL: interaction.user.displayAvatarURL()
+                    }
+                )
                 .setTimestamp();
 
             await interaction.reply({ embeds: [embed] });

@@ -1,4 +1,4 @@
-import { CommandInteraction, CommandInteractionOptionResolver, EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { CommandInteraction, CommandInteractionOptionResolver, EmbedBuilder, GuildMember, SlashCommandBuilder } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 import { colors } from "../../config/colors";
 
@@ -23,78 +23,60 @@ export default {
     ],
     async execute(interaction: CommandInteraction): Promise<void> {
         const options = interaction.options as CommandInteractionOptionResolver;
-        if (options.getSubcommand() === "user") {
-            const user = options.getUser("user");
+        const subcommand = options.getSubcommand();
 
-            if (!user) {
-                await interaction.reply({
-                    content: "Please provide a user.",
-                    ephemeral: true
-                });
-                return;
-            }
-
+        if (subcommand === "user") {
+            const member = options.getMember("user") as GuildMember;
             const embed = new EmbedBuilder()
-                .setTitle("User Information")
+                .setColor(colors.CYAN)
+                .setAuthor({ name: member.user.username, iconURL: member.displayAvatarURL() })
+                .setThumbnail(member.displayAvatarURL())
                 .addFields([
                     {
-                        name: "Username",
-                        value: `\`\`\`${user.username}\`\`\``,
-                        inline: true
-                    },
-                    {
-                        name: "ID",
-                        value: `\`\`\`${user.id}\`\`\``,
-                        inline: true
-                    },
-                    {
-                        name: "Bot",
-                        value: `\`\`\`${user.bot ? "Yes" : "No"}\`\`\``,
-                        inline: true
+                        name: "User Info",
+                        value: `ID: ${member.id}\nUsername: ${member.user.username}\nNickname: ${member.nickname || "None"}\nStatus: ${member.presence?.status || "Unknown"}`,
                     },
                     {
                         name: "Created At",
-                        value: `\`\`\`${user.createdAt.toDateString()}\`\`\``,
-                        inline: true
+                        value: `<t:${Math.floor(member.user.createdTimestamp / 1000)}:R>`
+                    },
+                    {
+                        name: "Joined At",
+                        value: `<t:${Math.floor((member.joinedTimestamp || member.user.createdTimestamp) / 1000)}:R>`
+                    },
+                    {
+                        name: "Roles",
+                        value: member.roles.cache.map(role => role.toString()).join(", ")
                     }
-                ])
-                .setColor(colors.CYAN)
-                .setThumbnail(user.displayAvatarURL({ forceStatic: true }));
+                ]);
 
             await interaction.reply({ embeds: [embed] });
-        } else if (options.getSubcommand() === "server") {
-            const guild = interaction.guild!;
+        }
+
+        if (subcommand === "server") {
+            const guild = interaction.guild;
+
+            if (!guild) return;
 
             const embed = new EmbedBuilder()
-                .setTitle("Server Information")
+                .setColor(colors.CYAN)
+                .setAuthor({ name: interaction.user.username, iconURL: interaction.user.displayAvatarURL() })
+                .setThumbnail(guild.iconURL())
                 .addFields([
                     {
-                        name: "Name",
-                        value: `\`\`\`${guild.name}\`\`\``,
-                        inline: true
-                    },
-                    {
-                        name: "ID",
-                        value: `\`\`\`${guild.id}\`\`\``,
-                        inline: true
-                    },
-                    {
-                        name: "Owner",
-                        value: `<@${guild.ownerId}>`,
-                        inline: true
-                    },
-                    {
-                        name: "Members",
-                        value: `\`\`\`${guild.memberCount}\`\`\``,
+                        name: "Server Info",
+                        value: `ID: ${guild.id}\nName: ${guild.name}\nOwner: ${(await guild.fetchOwner()).user.toString()}\nMember Count: ${guild.memberCount}`,
                         inline: true
                     },
                     {
                         name: "Created At",
-                        value: `\`\`\`${guild.createdAt.toDateString()}\`\`\``,
-                        inline: true
+                        value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:R>`
+                    },
+                    {
+                        name: "Roles",
+                        value: guild.roles.cache.map(role => role.toString()).join(", ")
                     }
                 ])
-                .setColor(colors.CYAN);
 
             await interaction.reply({ embeds: [embed] });
         }
