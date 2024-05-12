@@ -1,7 +1,10 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
-    "ghcr.io/prulloac/devcontainer-features/bun:1": {},
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/lumenpink/devcontainer-features/bun:0": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "latest",
+      "nodeGypDependencies": true
+    }
   }
 }
