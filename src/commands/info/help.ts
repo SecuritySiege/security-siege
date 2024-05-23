@@ -3,8 +3,8 @@ import { BaseCommand } from "../../interfaces";
 import BaseClient from "../../classes/Client";
 import { SlashCommandBuilder, EmbedBuilder } from "@discordjs/builders";
 import { colors } from "../../config/colors";
-import { config } from "config/config";
-import Utility from "classes/Utility";
+import { config } from "../../config/config";
+import Utility from "../../classes/Utility";
 
 export default {
     data: new SlashCommandBuilder()

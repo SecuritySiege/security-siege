@@ -3,7 +3,7 @@ import BaseClient from "../../classes/Client";
 import { AutocompleteInteraction, ChatInputCommandInteraction, CommandInteraction, ButtonInteraction } from "discord.js";
 import Logger from "../../classes/Logger";
 
-import { config } from "config/config";
+import { config } from "../../config/config";
 
 export default {
     name: "interactionCreate",

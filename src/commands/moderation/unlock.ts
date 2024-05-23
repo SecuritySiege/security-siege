@@ -1,8 +1,8 @@
 import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, TextChannel, ChannelType, PermissionFlagsBits } from "discord.js";
 import { BaseCommand } from "../../interfaces";
 
-import Logger from "classes/Logger";
-import Utility from "classes/Utility";
+import Logger from "../../classes/Logger";
+import Utility from "../../classes/Utility";
 
 export default {
     data: new SlashCommandBuilder()

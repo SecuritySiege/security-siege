@@ -5,16 +5,17 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun --watch ./src/index.ts",
+    "dev": "ts-node-dev ./src/index.ts",
     "build": "tsc",
-    "start": "bun run build && bun run ./dist/index.js"
+    "start": "npm run build && node ./dist/index.js"
   },
   "keywords": [],
   "author": "OwenPotent",
   "license": "MIT",
   "dependencies": {
-    "canvafy": "^7.1.0",
+    "canvas": "^2.11.2",
     "chalk": "^4.1.2",
+    "discord-welcome-card": "^4.9.3",
     "discord.js": "^14.15.1",
     "dotenv": "^16.4.5",
     "mongoose": "^8.3.2",

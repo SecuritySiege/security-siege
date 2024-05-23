@@ -1,5 +1,5 @@
 import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, GuildMember, PermissionFlagsBits } from "discord.js";
-import { BaseCommand } from "interfaces";
+import { BaseCommand } from "../../interfaces";
 
 export default {
     data: new SlashCommandBuilder()

@@ -112,7 +112,7 @@ export default {
                 .setLabel("Cancel")
                 .setStyle(ButtonStyle.Primary);
 
-            const actionRow = new ActionRowBuilder()
+            const actionRow = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(cancelButton, confirmButton);
 
             await interaction.reply({ embeds: [embed], components: [actionRow] });

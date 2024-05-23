@@ -1,6 +1,6 @@
-import { colors } from "config/colors";
+import { colors } from "../../config/colors";
 import { CommandInteraction, SlashCommandBuilder, EmbedBuilder, CommandInteractionOptionResolver, GuildMember } from "discord.js";
-import { BaseCommand } from "interfaces";
+import { BaseCommand } from "../../interfaces";
 
 export default {
     data: new SlashCommandBuilder()

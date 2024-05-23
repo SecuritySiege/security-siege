@@ -1,5 +1,6 @@
 import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, AutocompleteInteraction, ClientEvents, PermissionFlagsBits } from "discord.js";
-import { BaseCommand } from "interfaces";
+import { BaseCommand } from "../../interfaces";
+
 
 export const discordClientEvents: string[] = [
     "channelCreate",

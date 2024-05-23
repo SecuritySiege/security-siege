@@ -1,8 +1,8 @@
 import { CommandInteraction, CommandInteractionOptionResolver, SlashCommandBuilder, EmbedBuilder, GuildMember, Role, PermissionFlagsBits } from "discord.js";
-import { BaseCommand } from "interfaces";
+import { BaseCommand } from "../../interfaces";
 
-import Logger from "classes/Logger";
-import { MuteRole } from "models/GuildModel";
+import Logger from "../../classes/Logger";
+import { MuteRole } from "../../models/GuildModel";
 
 export default {
     data: new SlashCommandBuilder()

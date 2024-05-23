@@ -9,20 +9,22 @@
     # pkgs.go
     # pkgs.python311
     # pkgs.python311Packages.pip
-    pkgs.nodejs_21
+    pkgs.nodejs_latest
     pkgs.bun
     pkgs.typescript
     pkgs.time
     # pkgs.nodePackages.nodemon
+    pkgs.libuuid
   ];
 
   # Sets environment variables in the workspace
-  env = {};
+  env = { LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [pkgs.libuuid];  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
       # "vscodevim.vim"
       "equinusocio.vsc-material-theme-icons"
+      "Equinusocio.vsc-material-theme"
     ];
 
     # Enable previews
