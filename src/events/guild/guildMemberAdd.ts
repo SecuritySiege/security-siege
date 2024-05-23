@@ -1,13 +1,13 @@
 import { BaseEvent } from "../../interfaces";
 import BaseClient from "../../classes/Client";
-import { GuildMember, TextChannel, EmbedBuilder } from "discord.js";
-import Utility from "classes/Utility";
+import { GuildMember, TextChannel, EmbedBuilder, AttachmentBuilder } from "discord.js";
+import Utility from "../../classes/Utility";
 
-// import { WelcomeLeave } from "canvafy";
-import Logger from "classes/Logger";
-import { colors } from "config/colors";
+import Logger from "../../classes/Logger";
+import { colors } from "../../config/colors";
+import { drawCard, LinearGradient } from "discord-welcome-card";
 
-import { WelcomeChannel } from "models/GuildModel";
+import { WelcomeChannel } from "../../models/GuildModel";
 
 export default {
     name: "guildMemberAdd",
@@ -18,15 +18,37 @@ export default {
 
         if (!welcomeChannel) return;
 
-        // const banner = await new WelcomeLeave()
-        //     .setAvatar(member.user.displayAvatarURL({ forceStatic: false }))
-        //     .setBackground("image", "https://cdn.discordapp.com/attachments/919076443089149953/1232959871519817748/welcome_banner.png?ex=662b5adc&is=662a095c&hm=560fead1e92857a7adef896d585972a757c712cbd5c543eb827f27bba6e8d30d&")
-        //     .setTitle("Welcome :D")
-        //     .setDescription(`Welcome ${member.user.username}, go ahead and read the rules!`)
-        //     .setBorder("#2a2e35")
-        //     .setAvatarBorder("#2a2e35")
-        //     .setOverlayOpacity(0.3)
-        //     .build();
+        const channel = await member.guild.channels.cache.get(welcomeChannel.channelId) as TextChannel;
+
+        if (!channel) return;
+
+        const memberCount = await Utility.getMemberCount(member.guild);
+
+        // =====
+
+        const imageBuffer = await drawCard({
+            theme: 'circuit',
+            text: {
+                title: `Welcome, ${member.user.username}!`,
+                text: `Your our ${memberCount} member!`,
+                subtitle: 'Go ahead and check the rules!',
+                color: `#88f`,
+            },
+            avatar: {
+                image: member.user.displayAvatarURL({ extension: 'png' }),
+                outlineWidth: 5,
+                // @ts-ignore
+                outlineColor: new LinearGradient([0, '#33f'], [1, '#f33']),
+            },
+            // card: {
+            //     background: "https://imgur.com/BBRimPg",
+            //     blur: 1,
+            //     border: true,
+            //     rounded: true,
+            // }
+        });
+
+        // =====
 
         const welcomeEmbed = new EmbedBuilder()
             .setColor(colors.CYAN)
@@ -35,25 +57,14 @@ export default {
             .setThumbnail(member.user.displayAvatarURL({ forceStatic: false }))
             .setTimestamp();
 
-        const channel = await member.guild.channels.cache.get(welcomeChannel.channelId) as TextChannel;
-
-        if (!channel) return;
-
-        const memberCount = await Utility.getMemberCount(member.guild);
-
         try {
             await channel.send({
-                content: `Welcome ${member.user.toString()}! Your our ${memberCount} member!`,
-                embeds: [welcomeEmbed],
-
-                // TODO: Wait for Canvas API to be integrated with Bun
-
-                // files: [
-                //     {
-                //         attachment: banner,
-                //         name: `welcome_${member.user.id}.png`
-                //     }
-                // ]
+                // content: `Welcome ${member.user.toString()}! Your our ${memberCount} member!`,
+                // embeds: [welcomeEmbed],
+                files: [{
+                    attachment: imageBuffer,
+                    name: 'welcome.jpg'
+                  }]
             })
 
             return;
